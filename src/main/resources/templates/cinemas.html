@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://tymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://ww.thymeleaf.org/extras/spring-security5">
+<head>
+<meta charset="UTF-8">
+<title>Find a cinema</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+<p> test </p>
+	<div class="container">
+		<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand"
+							th:href="@{/cinemas(page=0,keyword=${keyword})}"> All cities</a>
+					</div>
+					<ul class="nav navbar-nav" th:each="c:${listCities}">
+						<li th:class="${c.id==city}?'active':''"><a
+							th:text="${c.name}"
+							th:href="@{/cinemas(page=0 , keyword=${''}, city=${c.id})}">
+						</a></li>
+					</ul>
+				</div>
+			</nav>
+
+<div class="panel panel-primary"></div>
+			<div class="row">
+				<div class="col-sm-10">
+					<form th:action="@{/cinemas}" method="get">
+
+						<label style="color: white">Keyword :</label> <input type="text"
+							name="keyword" th:value="${keyword}">
+						<button type="submit" class="btn btn-primary">Search</button>
+					</form>
+				</div>
+			</div>
+			<table class="table">
+				<tr bgcolor="white">
+
+					<th>Nom</th>
+					<th>Adresse</th>
+					<th>Ville</th>
+					<th>Action(s)</th>
+
+				</tr>
+				<tr bgcolor="white" th:each="cine:${listCinemas}">
+
+					<td th:text=${cine.name}></td>
+					<td th:text="${cine.address}"></td>
+					<td th:text="${cine.city.name}"></td>
+				</tr>
+
+			</table>
+			<ul class="nav nav-pills">
+				<li th:class="${currentPage==status.index}?'active':''"
+					th:each="page,status:${pages}"><a
+					th:href="@{/cinemas(page=${status.index},keyword=${keyword},city=${city})}"
+					th:text="${status.index}"></a></li>
+			</ul>
+
+		</div>
+
+			
+</body>
+</html>
