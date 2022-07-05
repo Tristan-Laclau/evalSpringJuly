@@ -8,6 +8,28 @@
 <link rel="stylesheet"  href="../static/css/bootstrap.min.css" 	 th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
-test????
+	
+		<nav class="navbar navbar-primary" style="background-color: rgb(0, 0, 0, 0.9)" >
+		<div class="container-fluid">
+			<div class="navbar-header" >
+			<span class="navbar-brand " style="color:  rgba(212, 175, 55)" >Distopia</span>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/cinemas}">Cinema list</a></li>					
+			</ul>
+		
+			<ul class="nav navbar-nav pull-right">
+			
+			</ul>
+		</div>
+	</nav>
+	
+	
+	<section layout:fragment="content"> </section>
 </body>
+<footer>
+	  <div class="text-white text-center p-3" style="background-color:rgba(0, 0, 0, 0.9); color: white">
+	  	<h3 style="color:  rgba(212, 175, 55)">Distopia : Cinemax</h3>
+	  </div>
+</footer>
 </html>

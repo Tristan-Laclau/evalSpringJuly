@@ -10,7 +10,7 @@
 	th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
-<p> test </p>
+<div layout:fragment="content">
 	<div class="container">
 		<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -27,7 +27,10 @@
 				</div>
 			</nav>
 
-<div class="panel panel-primary"></div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">Cinema list</div>
+
+			</div>
 			<div class="row">
 				<div class="col-sm-10">
 					<form th:action="@{/cinemas}" method="get">
@@ -52,6 +55,7 @@
 					<td th:text=${cine.name}></td>
 					<td th:text="${cine.address}"></td>
 					<td th:text="${cine.city.name}"></td>
+					<td><a class="btn btn-primary" th:href="@{/screenings(cinema=${cine.id})}">Screenings</a></td>
 				</tr>
 
 			</table>
@@ -61,9 +65,8 @@
 					th:href="@{/cinemas(page=${status.index},keyword=${keyword},city=${city})}"
 					th:text="${status.index}"></a></li>
 			</ul>
-
 		</div>
 
-			
+		</div>	
 </body>
 </html>

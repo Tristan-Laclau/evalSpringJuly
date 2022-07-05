@@ -12,6 +12,6 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long>{
 
 	Page<Cinema> findByNameContains(String keyword, Pageable pageable);
 
-	Page<Cinema> findByCityIdAndNameContains(String kw, Long cityId, Pageable pageable);
+	Page<Cinema> findByCityIdAndNameContains(Long cityId, String kw, Pageable pageable);
 
 }

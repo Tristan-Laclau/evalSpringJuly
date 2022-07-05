@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://tymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://ww.thymeleaf.org/extras/spring-security5">
+<head>
+<meta charset="UTF-8">
+<title>Screening list</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="container">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Screening list</div>
+
+			</div>
+			<table class="table">
+				<tr bgcolor="white">
+
+					<th>Film</th>
+					<th>Date</th>
+					<th>Heure</th>
+
+				</tr>
+				<tr bgcolor="white" th:each="s:${listScreenings}">
+
+					<td th:text=${s.movie.name}></td>
+					<td th:text="${s.day}"></td>
+					<td th:text="${s.startingHour}"></td>
+				</tr>
+
+			</table>
+			<ul class="nav nav-pills">
+				<li th:class="${currentPage==status.index}?'active':''"
+					th:each="page,status:${pages}"><a
+					th:href="@{/screenings(page=${status.index},cinema=${cinema})}"
+					th:text="${status.index}"></a></li>
+			</ul>
+
+		</div>
+
+		</div>	
+</body>
+</html>

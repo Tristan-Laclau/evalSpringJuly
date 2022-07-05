@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -95,8 +96,8 @@ public class IBusinessImpl implements IBusiness{
 	}
 
 	@Override
-	public Page<Cinema> getCinemasPageByCityId(String kw, Long cityId, Pageable pageable) {
-		return cinemaRepository.findByCityIdAndNameContains(kw, cityId, pageable);
+	public Page<Cinema> getCinemasPageByCityIdAndKeyword( Long cityId, String kw, Pageable pageable) {
+		return cinemaRepository.findByCityIdAndNameContains( cityId,kw, pageable);
 	}
 
 	@Override
@@ -181,9 +182,9 @@ public class IBusinessImpl implements IBusiness{
 	}
 
 	@Override
-	public Page<Screening> getScreeningsPage(Pageable pageable) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Screening> getScreeningsByCinemaId(long cinemaId, Pageable pageable) {
+		
+		return screeningRepository.findByCinemaId(cinemaId, pageable);
 	}
 
 	@Override

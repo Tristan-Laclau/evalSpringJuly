@@ -3,6 +3,7 @@ package fr.fms.business;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import fr.fms.entities.Booking;
@@ -53,7 +54,7 @@ public interface IBusiness {
 	 */
 	Page<Cinema> getCinemasPage(String keyword, Pageable pageable) throws Exception;
 	
-	Page<Cinema> getCinemasPageByCityId(String kw, Long cityId, Pageable pageable);
+	Page<Cinema> getCinemasPageByCityIdAndKeyword(Long cityId,String kw,  Pageable pageable);
 	
 	/**
 	 * Returns all cities in the database
@@ -150,12 +151,13 @@ public interface IBusiness {
 	public void updateScreening(Long id, String day, String startingHour, Movie movie, Cinema cinema);
 	
 	/**
-	 * Returns a page of screenings for easier display
+	 * Returns a page of screenings for a single cinema for easier display
 	 * @param pageable
+	 * @param cinemaId
 	 * @return Page<Screening> a page of screenings
 	 * @throws Exception
 	 */
-	Page<Screening> getScreeningsPage(Pageable pageable) throws Exception;
+	Page<Screening> getScreeningsByCinemaId(long cinemaId, Pageable pageable);
 	
 	/**
 	 * Insert a booking in the database
@@ -183,5 +185,7 @@ public interface IBusiness {
 	 * @param id of the customer
 	 */
 	public void deleteCustomer(Long id);
+
+	
 
 }
