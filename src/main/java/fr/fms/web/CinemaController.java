@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.hamcrest.SelfDescribing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
 
@@ -83,6 +87,25 @@ public class CinemaController {
 	@GetMapping("/login")
 	public String login(Model model, @RequestParam(name = "error", defaultValue = "false") boolean loginError) {
 		return "login";
+	}
+	
+	@GetMapping("/adminPageCinema")
+	public String adminPageCinema(Model model, @RequestParam(name = "action", defaultValue = "Update")String action) {
+		model.addAttribute("action", action);
+		List<Cinema> cinemas = businessImpl.getAllCinemas();
+		List<City> cities = businessImpl.getAllCities();
+		model.addAttribute("cinemas",cinemas);
+		model.addAttribute("cities",cities);
+		model.addAttribute("newCinema",new Cinema());
+		return "adminPageCinema";
+	}
+	
+	@PostMapping("/save")
+	public String save(@Valid Cinema cinema, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
+		
+		businessImpl.createCinema(cinema.getName(), cinema.getAddress(), cinema.getCity());
+		return "redirect:/adminPageCinema?action='Success'";
 	}
 
 }
