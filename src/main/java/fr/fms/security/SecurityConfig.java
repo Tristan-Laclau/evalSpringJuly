@@ -31,10 +31,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		auth.jdbcAuthentication()
 		.dataSource(dataSource)
-		.usersByUsernameQuery("select name as principal, password as credentials, active from User where username=?")
-		.authoritiesByUsernameQuery("select name as principal, role as role from User where username=?")
+		.usersByUsernameQuery("select username as principal, password as credentials, active from User where username=?")
+		.authoritiesByUsernameQuery("select u.username as principal, r.name as role from User u JOIN Role r ON u.role_id = r.id where username=?")
 		.rolePrefix("ROLE_")
 		.passwordEncoder(passwordEncoder());
+		
 	}
 	
 	@Bean
@@ -45,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		   http.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/index").failureUrl("/login?error=true").permitAll();
+		   http.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/cinemas").failureUrl("/login?error=true").permitAll();
 		   http.authorizeRequests()
 //			.antMatchers("/myOrder","/commande","/delete","/save","/edit","/article").hasRole("ADMIN")
 //			.antMatchers("/myOrder","/commande").hasRole("USER")

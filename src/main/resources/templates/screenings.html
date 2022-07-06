@@ -13,7 +13,7 @@
 <div layout:fragment="content">
 	<div class="container">
 			<div class="panel panel-primary">
-				<div class="panel-heading">Screening list</div>
+				<div style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)"class="panel-heading">Screening list</div>
 
 			</div>
 			<table class="table">
@@ -34,7 +34,7 @@
 			</table>
 			<ul class="nav nav-pills">
 				<li th:class="${currentPage==status.index}?'active':''"
-					th:each="page,status:${pages}"><a
+					th:each="page,status:${pages}"><a style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)"
 					th:href="@{/screenings(page=${status.index},cinema=${cinema})}"
 					th:text="${status.index}"></a></li>
 			</ul>

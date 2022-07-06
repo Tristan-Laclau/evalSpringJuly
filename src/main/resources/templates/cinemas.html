@@ -12,14 +12,14 @@
 <body>
 <div layout:fragment="content">
 	<div class="container">
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">
 				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand"
+					<div class="navbar-header" >
+						<a style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)" class="navbar-brand" 
 							th:href="@{/cinemas(page=0,keyword=${keyword})}"> All cities</a>
 					</div>
 					<ul class="nav navbar-nav" th:each="c:${listCities}">
-						<li th:class="${c.id==city}?'active':''"><a
+						<li th:class="${c.id==city}?'active':''"><a style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)"
 							th:text="${c.name}"
 							th:href="@{/cinemas(page=0 , keyword=${''}, city=${c.id})}">
 						</a></li>
@@ -28,16 +28,16 @@
 			</nav>
 
 			<div class="panel panel-primary">
-				<div class="panel-heading">Cinema list</div>
+				<div class="panel-heading" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">Cinema list</div>
 
 			</div>
 			<div class="row">
 				<div class="col-sm-10">
 					<form th:action="@{/cinemas}" method="get">
 
-						<label style="color: white">Keyword :</label> <input type="text"
+						<label style="color: rgba(212, 175, 55)">Keyword :</label> <input style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)"type="text"
 							name="keyword" th:value="${keyword}">
-						<button type="submit" class="btn btn-primary">Search</button>
+						<button type="submit" class="btn btn-warning">Search</button>
 					</form>
 				</div>
 			</div>
@@ -55,13 +55,13 @@
 					<td th:text=${cine.name}></td>
 					<td th:text="${cine.address}"></td>
 					<td th:text="${cine.city.name}"></td>
-					<td><a class="btn btn-primary" th:href="@{/screenings(cinema=${cine.id})}">Screenings</a></td>
+					<td><a class="btn btn-warning" th:href="@{/screenings(cinema=${cine.id})}">Screenings</a></td>
 				</tr>
 
 			</table>
 			<ul class="nav nav-pills">
 				<li th:class="${currentPage==status.index}?'active':''"
-					th:each="page,status:${pages}"><a
+					th:each="page,status:${pages}"><a style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)"
 					th:href="@{/cinemas(page=${status.index},keyword=${keyword},city=${city})}"
 					th:text="${status.index}"></a></li>
 			</ul>
