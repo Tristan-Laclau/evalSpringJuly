@@ -1,9 +1,5 @@
 package fr.fms.business;
 
-
-
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -35,36 +30,36 @@ import fr.fms.security.SecurityConfig;
 
 @Service
 public class IBusinessImpl implements IBusiness{
-	
+
 	@Autowired
 	BookingRepository bookingRepository;
-	
+
 	@Autowired
 	CinemaRepository cinemaRepository;
-	
+
 	@Autowired
 	CityRepository cityRepository;
-	
+
 	@Autowired
 	CustomerRepository customerRepository;
-	
+
 	@Autowired
 	MovieRepository movieRepository;
-	
+
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
 	ScreeningRepository screeningRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	SecurityConfig securityConfig;
-	
+
 	public IBusinessImpl() {
-		
+
 	}
 
 	@Override
@@ -92,7 +87,7 @@ public class IBusinessImpl implements IBusiness{
 	@Override
 	public void updateCinema(Long id, String name, String address, City city) {
 		cinemaRepository.save(new Cinema(id, name,address,city,null));
-		
+
 	}
 
 	@Override
@@ -114,7 +109,7 @@ public class IBusinessImpl implements IBusiness{
 	@Override
 	public City createCity(String name) {
 		return cityRepository.save(new City(null, name, null));
-		
+
 	}
 
 	@Override
@@ -140,21 +135,21 @@ public class IBusinessImpl implements IBusiness{
 
 	@Override
 	public Movie createMovie(String name, String picture) {
-		
+
 		return movieRepository.save(new Movie(null,name,picture,null));
-		
+
 	}
 
 	@Override
 	public void deleteMovie(Long id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void updateMovie(Long id, String name, String picture) {
 		movieRepository.save(new Movie(id,name,picture,null));
-		
+
 	}
 
 	@Override
@@ -167,12 +162,12 @@ public class IBusinessImpl implements IBusiness{
 	public List<Screening> getAllScreenings() {
 		return screeningRepository.findAll();
 	}
-	
+
 	@Override
 	public List<Screening> getAllScreeningsByCinemaId(Long id){
 		return screeningRepository.findByCinemaId(id);
 	}
-	
+
 	@Override
 	public List<Screening> getAllScreeningsByMovieId(Long id) {
 		return screeningRepository.findByMovieId(id);
@@ -180,7 +175,7 @@ public class IBusinessImpl implements IBusiness{
 
 	@Override
 	public Screening createScreening(String day, String startingHour, Movie movie, Cinema cinema) {
-		return null;
+		return screeningRepository.save(new Screening(null, day ,startingHour,movie,cinema));
 	}
 
 	@Override
@@ -191,43 +186,43 @@ public class IBusinessImpl implements IBusiness{
 		catch (Exception e) {
 			System.out.println("Cannot delete screening");
 		}
-		
+
 	}
 
 	@Override
 	public void updateScreening(Long id, String day, String startingHour, Movie movie, Cinema cinema) {
-		// TODO Auto-generated method stub
-		
+		screeningRepository.save(new Screening(id,day,startingHour,movie,cinema));
+
 	}
 
 	@Override
 	public Page<Screening> getScreeningsByCinemaId(long cinemaId, Pageable pageable) {
-		
+
 		return screeningRepository.findByCinemaId(cinemaId, pageable);
 	}
 
 	@Override
 	public Booking createBooking(Screening screening, User user, Customer customer) {
 		return null;
-		
+
 	}
 
 	@Override
 	public void deleteBooking(Long id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void createCustomer(String name) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteCustomer(Long id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void generateValues() {
@@ -237,7 +232,7 @@ public class IBusinessImpl implements IBusiness{
 		City rennesCity = cityRepository.save(new City(null,"Rennes",null));
 		City bordeauxCity = cityRepository.save(new City(null,"Bordeaux",null));
 		City toulouseCity = cityRepository.save(new City(null,"Toulouse",null));
-		
+
 		Cinema cinema1 = cinemaRepository.save(new Cinema(null,"CGR Bayonne","14 Rue de Bayonne",bayonneCity,null));
 		Cinema cinema2 = cinemaRepository.save(new Cinema(null,"CGR Tarnos","9 Rue de la tuilerie", tarnosCity, null));
 		Cinema cinema3 = cinemaRepository.save(new Cinema(null,"L'Atalante","6 Quai de Lesseps",bayonneCity, null));
@@ -245,12 +240,12 @@ public class IBusinessImpl implements IBusiness{
 		Cinema cinema5 = cinemaRepository.save(new Cinema(null,"Gaumont Rennes","12 Rue Yvonne Jean Haffen",rennesCity, null));
 		Cinema cinema6 = cinemaRepository.save(new Cinema(null,"UGC Bordeaux","4 Boulevard des pinards",bordeauxCity, null));
 		Cinema cinema7 = cinemaRepository.save(new Cinema(null,"Gaumont Toulouse Wilson","3 Place du Président Wilson",toulouseCity, null));
-		
+
 		Movie movie1 = movieRepository.save(new Movie(null,"Josee, le tigre et les poissons","picture.png",null));
 		Movie movie2 = movieRepository.save(new Movie(null,"Top Gun : Maverick","picture.png",null));
 		Movie movie3 = movieRepository.save(new Movie(null,"Dr. Strange in the Multiverse of Madness","picture.png",null));
 		Movie movie4 = movieRepository.save(new Movie(null,"Your Name","picture.png",null));
-		
+
 		screeningRepository.save(new Screening(null,"06/07","17H00",movie1,cinema1));
 		screeningRepository.save(new Screening(null,"07/07","16H00",movie1,cinema2));
 		screeningRepository.save(new Screening(null,"08/07","15H00",movie1,cinema3));
@@ -279,12 +274,12 @@ public class IBusinessImpl implements IBusiness{
 		screeningRepository.save(new Screening(null,"07/07","15H00",movie4,cinema5));
 		screeningRepository.save(new Screening(null,"06/07","15H00",movie4,cinema6));
 		screeningRepository.save(new Screening(null,"06/07","16H00",movie4,cinema7));
-	
+
 		Role admin = roleRepository.save(new Role(null, "ADMIN",null));
-		
+
 		userRepository.save(new User(null, "Tristan", securityConfig.encodePassword("fms2022"),true , null, admin));
-		
-		
+
+
 	}
 
 }

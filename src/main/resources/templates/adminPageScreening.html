@@ -147,11 +147,11 @@
 											<div class="form-group">
 
 												<div class="form-group">
-													<label class="control-label">Movie : </label> <select
+													<label class="control-label">Screening : </label> <select
 														class="form-control" name="id"
-														th:value="${newMovie.id}">
-														<option th:each="m:${movies}" th:text="${m.name}"
-															th:value="${m.id}"></option>
+														th:value="${newScreening.id}">
+														<option th:each="s:${screenings}" th:text="${s.id}"
+															th:value="${s.id}"></option>
 													</select>
 												</div>
 											</div>
