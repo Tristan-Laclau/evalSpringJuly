@@ -16,15 +16,15 @@
 
 			<div class="container">
 				<div class="panel panel-default">
-					<div class="panel-heading">Manage screenings</div>
+					<div class="panel-heading" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">Manage screenings</div>
 					<div class="row">
 						<div class="col-lg-5 col-md-5 col-sm-5">
 							<div class="panel panel-default">
-								<div class="panel-heading">Choose an action</div>
+								<div class="panel-heading" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">Choose an action</div>
 								<div class="input-append">
-									<a class="btn" th:href="@{/adminPageScreening(action='Delete')}">Delete</a>
-									<a class="btn" th:href="@{/adminPageScreening(action='Update')}">Update</a>
-									<a class="btn" th:href="@{/adminPageScreening(action='Create')}">Create</a>
+									<a class="btn btn-warning" th:href="@{/adminPageScreening(action='Delete')}">Delete</a>
+									<a class="btn btn-warning" th:href="@{/adminPageScreening(action='Update')}">Update</a>
+									<a class="btn btn-warning" th:href="@{/adminPageScreening(action='Create')}">Create</a>
 								</div>
 
 							</div>
@@ -34,7 +34,7 @@
 						<th:block th:if="${action=='Create'}">
 							<div class="col-lg-7 col-md-7 col-sm-7">
 								<div class="panel panel-default">
-									<div class="panel-heading">Creating</div>
+									<div class="panel-heading" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">Creating</div>
 									<div class="panel-body">
 										<form th:action="@{/saveScreening}" method="POST">
 											<div class="form-group">
@@ -70,7 +70,7 @@
 													th:errors="${newScreening.startingHour}"></span>
 
 											</div>
-											<button type="submit" class="btn btn-primary">Save</button>
+											<button type="submit" class="btn btn-warning">Save</button>
 										</form>
 									</div>
 								</div>
@@ -81,7 +81,7 @@
 						<th:block th:if="${action=='Update'}">
 							<div class="col-lg-7 col-md-7 col-sm-7">
 								<div class="panel panel-default">
-									<div class="panel-heading">Updating</div>
+									<div class="panel-heading" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">Updating</div>
 									<div class="panel-body">
 										<form th:action="@{/editScreening}" method="POST">
 											<div class="form-group">
@@ -130,7 +130,7 @@
 											</div>
 
 											</div>
-											<button type="submit" class="btn btn-primary">Save</button>
+											<button type="submit" class="btn btn-warning">Save</button>
 										</form>
 									</div>
 								</div>
@@ -141,7 +141,7 @@
 						<th:block th:if="${action=='Delete'}">
 							<div class="col-lg-7 col-md-7 col-sm-7">
 								<div class="panel panel-default">
-									<div class="panel-heading">Deleting</div>
+									<div class="panel-heading" style="color:  rgba(212, 175, 55); background-color: rgb(0, 0, 0, 0.9)">Deleting</div>
 									<div class="panel-body">
 										<form th:action="@{/deleteScreening}" method="POST">
 											<div class="form-group">
@@ -155,7 +155,7 @@
 													</select>
 												</div>
 											</div>
-											<button type="submit" class="btn btn-primary">Delete</button>
+											<button type="submit" class="btn btn-warning">Delete</button>
 										</form>
 									</div>
 								</div>
