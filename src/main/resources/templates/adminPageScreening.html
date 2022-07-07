@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://tymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://ww.thymeleaf.org/extras/spring-security5">
+<head>
+<meta charset="UTF-8">
+<title>Manage screenings</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+
+
+			<div class="container">
+				<div class="panel panel-default">
+					<div class="panel-heading">Manage screenings</div>
+					<div class="row">
+						<div class="col-lg-5 col-md-5 col-sm-5">
+							<div class="panel panel-default">
+								<div class="panel-heading">Choose an action</div>
+								<div class="input-append">
+									<a class="btn" th:href="@{/adminPageScreening(action='Delete')}">Delete</a>
+									<a class="btn" th:href="@{/adminPageScreening(action='Update')}">Update</a>
+									<a class="btn" th:href="@{/adminPageScreening(action='Create')}">Create</a>
+								</div>
+
+							</div>
+						</div>
+
+
+						<th:block th:if="${action=='Create'}">
+							<div class="col-lg-7 col-md-7 col-sm-7">
+								<div class="panel panel-default">
+									<div class="panel-heading">Creating</div>
+									<div class="panel-body">
+										<form th:action="@{/saveScreening}" method="POST">
+											<div class="form-group">
+													<label class="control-label">Movie : </label> <select
+														class="form-control" name="movie"
+														th:value="${newScreening.movie}">
+														<option th:each="m:${movies}" th:text="${m.name}"
+															th:value="${m.id}"></option>
+													</select>
+												</div>
+												
+												<div class="form-group">
+													<label class="control-label">Cinema : </label> <select
+														class="form-control" name="cinema"
+														th:value="${newScreening.cinema}">
+														<option th:each="c:${cinemas}" th:text="${c.name}"
+															th:value="${c.id}"></option>
+													</select>
+												</div>
+												
+											<div class="form-group">
+												<label class="control-label">Day</label> <input
+													class="form-control" type="text" name="day"
+													th:value="${newScreening.day}"> <span
+													th:errors="${newScreening.day}"></span>
+
+											</div>
+											
+											<div class="form-group">
+												<label class="control-label">Starting hour</label> <input
+													class="form-control" type="text" name="startingHour"
+													th:value="${newScreening.startingHour}"> <span
+													th:errors="${newScreening.startingHour}"></span>
+
+											</div>
+											<button type="submit" class="btn btn-primary">Save</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</th:block>
+
+
+						<th:block th:if="${action=='Update'}">
+							<div class="col-lg-7 col-md-7 col-sm-7">
+								<div class="panel panel-default">
+									<div class="panel-heading">Updating</div>
+									<div class="panel-body">
+										<form th:action="@{/editScreening}" method="POST">
+											<div class="form-group">
+											
+											<div class="form-group">
+													<label class="control-label">Screening : </label> <select
+														class="form-control" name="oldScreening"
+														th:value="${newScreening.id}">
+														<option th:each="s:${screenings}" th:text="${s.id}"
+															th:value="${s.id}"></option>
+													</select>
+												</div>
+
+												<div class="form-group">
+													<label class="control-label">Movie : </label> <select
+														class="form-control" name="movie"
+														th:value="${newScreening.movie}">
+														<option th:each="m:${movies}" th:text="${m.name}"
+															th:value="${m.id}"></option>
+													</select>
+												</div>
+												
+												<div class="form-group">
+													<label class="control-label">Cinema : </label> <select
+														class="form-control" name="cinema"
+														th:value="${newScreening.cinema}">
+														<option th:each="c:${cinemas}" th:text="${c.name}"
+															th:value="${c.id}"></option>
+													</select>
+												</div>
+												
+											<div class="form-group">
+												<label class="control-label">Day</label> <input
+													class="form-control" type="text" name="day"
+													th:value="${newScreening.day}"> <span
+													th:errors="${newScreening.day}"></span>
+
+											</div>
+											
+											<div class="form-group">
+												<label class="control-label">Starting hour</label> <input
+													class="form-control" type="text" name="startingHour"
+													th:value="${newScreening.startingHour}"> <span
+													th:errors="${newScreening.startingHour}"></span>
+
+											</div>
+
+											</div>
+											<button type="submit" class="btn btn-primary">Save</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</th:block>
+
+
+						<th:block th:if="${action=='Delete'}">
+							<div class="col-lg-7 col-md-7 col-sm-7">
+								<div class="panel panel-default">
+									<div class="panel-heading">Deleting</div>
+									<div class="panel-body">
+										<form th:action="@{/deleteScreening}" method="POST">
+											<div class="form-group">
+
+												<div class="form-group">
+													<label class="control-label">Movie : </label> <select
+														class="form-control" name="id"
+														th:value="${newMovie.id}">
+														<option th:each="m:${movies}" th:text="${m.name}"
+															th:value="${m.id}"></option>
+													</select>
+												</div>
+											</div>
+											<button type="submit" class="btn btn-primary">Delete</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</th:block>
+
+						<th:block th:if="${action=='CannotDelete'}">
+							<div class="col-lg-7 col-md-7 col-sm-7">
+								<div class="panel panel-default">
+									<div class="panel-heading">Deleting</div>
+									<div class="panel-body">
+										<div> Cannot delete!</div>
+									</div>
+								</div>
+							</div>
+						</th:block>
+
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

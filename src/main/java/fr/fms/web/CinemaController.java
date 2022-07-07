@@ -1,5 +1,6 @@
 package fr.fms.web;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,9 @@ import org.springframework.stereotype.Controller;
 import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.Cinema;
 import fr.fms.entities.City;
+import fr.fms.entities.Movie;
 import fr.fms.entities.Screening;
+import javassist.expr.NewArray;
 
 @Controller
 public class CinemaController {
@@ -100,12 +103,145 @@ public class CinemaController {
 		return "adminPageCinema";
 	}
 	
+	@GetMapping("/adminPageMovie")
+	public String adminPageMovie(Model model, @RequestParam(name = "action", defaultValue = "Update")String action) {
+		model.addAttribute("action", action);
+		List<Movie> movies = businessImpl.getAllMovies();
+		model.addAttribute("movies",movies);
+		model.addAttribute("newMovie",new Movie());
+		return "adminPageMovie";
+	}
+	
+	@GetMapping("/adminPageScreening")
+	public String adminPageScreenings(Model model, @RequestParam(name = "action", defaultValue = "Update")String action) {
+		model.addAttribute(action);
+		List<Movie> movies = businessImpl.getAllMovies();
+		List<Cinema> cinemas = businessImpl.getAllCinemas();
+		List<Screening> screenings = businessImpl.getAllScreenings();
+		model.addAttribute(screenings);
+		model.addAttribute(cinemas);
+		model.addAttribute(movies);
+		model.addAttribute("newScreening", new Screening());
+		return "adminPageScreening";
+	}
+	
 	@PostMapping("/save")
 	public String save(@Valid Cinema cinema, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
 		
-		businessImpl.createCinema(cinema.getName(), cinema.getAddress(), cinema.getCity());
+		try {
+			businessImpl.createCinema(cinema.getName(), cinema.getAddress(), cinema.getCity());
+		} catch (Exception e) {
+			return "redirect:/adminPageCinema?action='Failure'";
+		}
+		
 		return "redirect:/adminPageCinema?action='Success'";
+	}
+	
+	@PostMapping("/saveMovie")
+	public String saveMovie(@Valid Movie movie, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
+		
+		try {
+			businessImpl.createMovie(movie.getName(),"picture.png");
+		} catch (Exception e) {
+			return "redirect:/adminPageCinema?action='Failure'";
+		}
+		
+		return "redirect:/adminPageCinema?action='Success'";
+	}
+	
+	@PostMapping("/saveScreening")
+	public String saveScreening(@Valid Screening screening, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageScreenings?action='Failure'";
+		
+		try {
+			businessImpl.createScreening(screening.getDay(), screening.getStartingHour(), screening.getMovie(), screening.getCinema());
+		}catch (Exception e) {
+			return "redirect:/adminPageScreenings?action='Failure'";
+		}
+		return "redirect:/adminPageScreenings?action='Success'";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@Valid Cinema cinema,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
+		
+		try {
+			businessImpl.updateCinema(cinema.getId(),cinema.getName(), cinema.getAddress(), cinema.getCity());
+		} catch (Exception e) {
+			return "redirect:/adminPageCinema?action='Failure'";
+		}
+		
+		return "redirect:/admingPageCinema?action='Success'";
+	}
+	
+	@PostMapping("/editMovie")
+	public String editMovie(@Valid Movie movie,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
+		
+		try {
+		businessImpl.updateMovie(movie.getId(),movie.getName(),"picture.png");
+		}catch (Exception e) {
+			return "redirect:/adminPageCinema?action='Failure'";
+		}
+		return "redirect:/admingPageCinema?action='Success'";
+	}
+	
+	@PostMapping("/editScreening")
+	public String editScreening(@Valid Screening screening, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageScreenings?action='Failure'";
+		
+		try {
+			businessImpl.updateScreening(screening.getId(), screening.getDay(), screening.getStartingHour(), screening.getMovie(), screening.getCinema());
+		}catch (Exception e) {
+			return "redirect:/adminPageScreenings?action='Failure'";
+		}
+		return "redirect:/adminPageScreenings?action='Success'";
+	}
+	
+	@PostMapping("/delete")
+	public String delete(@Valid Cinema cinema, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
+		
+		try {
+			for (Screening screening : businessImpl.getAllScreeningsByCinemaId(cinema.getId())){
+				businessImpl.deleteScreening(screening.getId());
+			}
+		businessImpl.deleteCinema(cinema.getId());
+		}
+		catch (Exception e) {
+			return "redirect:/adminPageCinema?action='CannotDelete'";
+		}
+		return "redirect:/adminPageCinema?action='Success'";
+	}
+	
+	@PostMapping("/deleteMovie")
+	public String deleteMovie(@Valid Movie movie, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/adminPageCinema?action='Failure'";
+		
+		try {
+			for (Screening screening : businessImpl.getAllScreeningsByMovieId(movie.getId())){
+				businessImpl.deleteScreening(screening.getId());
+			}
+		businessImpl.deleteMovie(movie.getId());
+		}
+		catch (Exception e) {
+			return "redirect:/adminPageCinema?action='CannotDelete'";
+		}
+		return "redirect:/adminPageCinema?action='Success'";
+	}
+	
+	@PostMapping("/deleteScreening")
+	public String deleteScreening(@Valid Screening screening, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "redirect:/admingPageScreening?action=='Failure'";
+		
+		try {
+			businessImpl.deleteScreening(screening.getId());
+		} catch (Exception e) {
+			return "redirect:/admingPageScreening?action=='Failure'";
+		}
+		return "redirect:/adminPageScreening?action=='Success'";
 	}
 
 }

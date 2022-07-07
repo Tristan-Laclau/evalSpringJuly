@@ -185,6 +185,20 @@ public interface IBusiness {
 	 * @param id of the customer
 	 */
 	public void deleteCustomer(Long id);
+	
+	/**
+	 * Returns all the screenings of a cinema in a List
+	 * @param id of the cinema
+	 * @return List<Screening>
+	 */
+	public List<Screening> getAllScreeningsByCinemaId(Long id);
+
+	/**
+	 * Returns all the screenings of a movie in a List
+	 * @param id of the movie
+	 * @return List<Screening>
+	 */
+	public List<Screening> getAllScreeningsByMovieId(Long id);
 
 	
 

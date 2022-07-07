@@ -23,8 +23,9 @@ background-size: cover;">
 		
 			<ul class="nav navbar-nav pull-right">
 				<li><a  th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
-				<li><a th:href="@{adminPageCinema}" sec:authorize="isAuthenticated()"> Manage cinema list</a></li>
-				<li><a th:href="@{adminPageMovie}" sec:authorize="isAuthenticated()">Manage movie list</a></li>
+				<li><a th:href="@{/adminPageCinema}" sec:authorize="isAuthenticated()"> Manage cinema list</a></li>
+				<li><a th:href="@{/adminPageMovie}" sec:authorize="isAuthenticated()">Manage movie list</a></li>
+				<li><a th:href="@{/adminPageScreening}" sec:authorize="isAuthenticated()">Manage screening list</a></li>
 				<li><a  th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a></li>
 			</ul>
 		</div>
@@ -43,7 +44,7 @@ background-size: cover;">
 				align-items: center;
 				justify-content: center;">
 	  <div class="text-white text-center p-3" style="background-color:rgba(0, 0, 0, 0.9); color: white">
-	  	<h3 style="color:  rgba(212, 175, 55)">Distopia : Cinemax</h3>
+	  	<h3 style="color:  rgba(212, 175, 55)">Dystopia : Cinemax</h3>
 	  </div>
 </footer>
 </html>

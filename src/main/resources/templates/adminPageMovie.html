@@ -5,7 +5,7 @@
 	xmlns:sec="http://ww.thymeleaf.org/extras/spring-security5">
 <head>
 <meta charset="UTF-8">
-<title>Manage cinemas</title>
+<title>Manage movies</title>
 <link rel="stylesheet" href="../static/css/bootstrap.min.css"
 	th:href="@{css/bootstrap.min.css}">
 </head>
@@ -16,15 +16,15 @@
 
 			<div class="container">
 				<div class="panel panel-default">
-					<div class="panel-heading">Manage cinemas</div>
+					<div class="panel-heading">Manage movies</div>
 					<div class="row">
 						<div class="col-lg-5 col-md-5 col-sm-5">
 							<div class="panel panel-default">
 								<div class="panel-heading">Choose an action</div>
 								<div class="input-append">
-									<a class="btn" th:href="@{/adminPageCinema(action='Delete')}">Delete</a>
-									<a class="btn" th:href="@{/adminPageCinema(action='Update')}">Update</a>
-									<a class="btn" th:href="@{/adminPageCinema(action='Create')}">Create</a>
+									<a class="btn" th:href="@{/adminPageMovie(action='Delete')}">Delete</a>
+									<a class="btn" th:href="@{/adminPageMovie(action='Update')}">Update</a>
+									<a class="btn" th:href="@{/adminPageMovie(action='Create')}">Create</a>
 								</div>
 
 							</div>
@@ -36,28 +36,12 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">Creating</div>
 									<div class="panel-body">
-										<form th:action="@{/save}" method="POST">
+										<form th:action="@{/saveMovie}" method="POST">
 											<div class="form-group">
 												<label class="control-label">Name</label> <input
 													class="form-control" type="text" name="name"
-													th:value="${newCinema.name}"> <span
-													th:errors="${newCinema.name}"></span>
-
-											</div>
-											<div class="form-group">
-												<label class="control-label">Address</label> <input
-													class="form-control" type="text" name="address"
-													th:value="${newCinema.address}"> <span
-													th:errors="${newCinema.address}"></span>
-
-											</div>
-											<div class="from-group">
-												<label class="control-label">City</label> <select
-													class="form-control" name="city"
-													th:value="${newCinema.city}">
-													<option th:each="c:${cities}" th:text="${c.name}"
-														th:value="${c.id}"></option>
-												</select>
+													th:value="${newMovie.name}"> <span
+													th:errors="${newMovie.name}"></span>
 											</div>
 											<button type="submit" class="btn btn-primary">Save</button>
 										</form>
@@ -72,37 +56,22 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">Updating</div>
 									<div class="panel-body">
-										<form th:action="@{/edit}" method="POST">
+										<form th:action="@{/editMovie}" method="POST">
 											<div class="form-group">
 
 												<div class="form-group">
-													<label class="control-label">Cinema : </label> <select
-														class="form-control" name="oldCinema"
-														th:value="${newCinema.id}">
-														<option th:each="c:${cinemas}" th:text="${c.name}"
-															th:value="${c.id}"></option>
+													<label class="control-label">Movie : </label> <select
+														class="form-control" name="oldMovie"
+														th:value="${newMovie.id}">
+														<option th:each="m:${movies}" th:text="${m.name}"
+															th:value="${m.id}"></option>
 													</select>
 												</div>
 												<label class="control-label">Name</label> <input
 													class="form-control" type="text" name="name"
-													th:value="${newCinema.name}"> <span
-													th:errors="${newCinema.name}"></span>
+													th:value="${newMovie.name}"> <span
+													th:errors="${newMovie.name}"></span>
 
-											</div>
-											<div class="form-group">
-												<label class="control-label">Address</label> <input
-													class="form-control" type="text" name="address"
-													th:value="${newCinema.address}"> <span
-													th:errors="${newCinema.address}"></span>
-
-											</div>
-											<div class="from-group">
-												<label class="control-label">City</label> <select
-													class="form-control" name="city"
-													th:value="${newCinema.city}">
-													<option th:each="c:${cities}" th:text="${c.name}"
-														th:value="${c.id}"></option>
-												</select>
 											</div>
 											<button type="submit" class="btn btn-primary">Save</button>
 										</form>
@@ -117,15 +86,15 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">Deleting</div>
 									<div class="panel-body">
-										<form th:action="@{/delete}" method="POST">
+										<form th:action="@{/deleteMovie}" method="POST">
 											<div class="form-group">
 
 												<div class="form-group">
-													<label class="control-label">Cinema : </label> <select
+													<label class="control-label">Movie : </label> <select
 														class="form-control" name="id"
-														th:value="${newCinema.id}">
-														<option th:each="c:${cinemas}" th:text="${c.name}"
-															th:value="${c.id}"></option>
+														th:value="${newMovie.id}">
+														<option th:each="m:${movies}" th:text="${m.name}"
+															th:value="${m.id}"></option>
 													</select>
 												</div>
 											</div>

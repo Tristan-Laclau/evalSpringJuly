@@ -135,13 +135,13 @@ public class IBusinessImpl implements IBusiness{
 
 	@Override
 	public List<Movie> getAllMovies() {
-		// TODO Auto-generated method stub
-		return null;
+		return movieRepository.findAll();
 	}
 
 	@Override
 	public Movie createMovie(String name, String picture) {
-		return null;
+		
+		return movieRepository.save(new Movie(null,name,picture,null));
 		
 	}
 
@@ -153,7 +153,7 @@ public class IBusinessImpl implements IBusiness{
 
 	@Override
 	public void updateMovie(Long id, String name, String picture) {
-		// TODO Auto-generated method stub
+		movieRepository.save(new Movie(id,name,picture,null));
 		
 	}
 
@@ -165,8 +165,17 @@ public class IBusinessImpl implements IBusiness{
 
 	@Override
 	public List<Screening> getAllScreenings() {
-		// TODO Auto-generated method stub
-		return null;
+		return screeningRepository.findAll();
+	}
+	
+	@Override
+	public List<Screening> getAllScreeningsByCinemaId(Long id){
+		return screeningRepository.findByCinemaId(id);
+	}
+	
+	@Override
+	public List<Screening> getAllScreeningsByMovieId(Long id) {
+		return screeningRepository.findByMovieId(id);
 	}
 
 	@Override
@@ -176,7 +185,12 @@ public class IBusinessImpl implements IBusiness{
 
 	@Override
 	public void deleteScreening(Long id) {
-		// TODO Auto-generated method stub
+		try {
+			screeningRepository.deleteById(id);
+		}
+		catch (Exception e) {
+			System.out.println("Cannot delete screening");
+		}
 		
 	}
 
@@ -235,7 +249,7 @@ public class IBusinessImpl implements IBusiness{
 		Movie movie1 = movieRepository.save(new Movie(null,"Josee, le tigre et les poissons","picture.png",null));
 		Movie movie2 = movieRepository.save(new Movie(null,"Top Gun : Maverick","picture.png",null));
 		Movie movie3 = movieRepository.save(new Movie(null,"Dr. Strange in the Multiverse of Madness","picture.png",null));
-		Movie movie4 = movieRepository.save(new Movie(null,"Akira","picture.png",null));
+		Movie movie4 = movieRepository.save(new Movie(null,"Your Name","picture.png",null));
 		
 		screeningRepository.save(new Screening(null,"06/07","17H00",movie1,cinema1));
 		screeningRepository.save(new Screening(null,"07/07","16H00",movie1,cinema2));
